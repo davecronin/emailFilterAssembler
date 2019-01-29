@@ -48,6 +48,27 @@ class Action:
 			str += " apply smark label '%s'" % self.smartLabel_  
 		return str[:-1]
 		
+	def overrideWith(self, other):
+		if not other:
+			assert 0
+		if other.label_:
+			self.label_ = other.label_
+		if other.markAsRead_:
+			self.markAsRead_ = other.markAsRead_
+		if other.star_:
+			self.star_ = other.star_
+		if other.delete_:
+			self.delete_ = other.delete_
+		if other.archive_:
+			self.archive_ = other.archive_
+		if other.neverSpam_:
+			self.neverSpam_ = other.neverSpam_
+		if other.important_:
+			self.important_ = other.important_
+		if other.smartLabel_:
+			self.smartLabel_ = other.smartLabel_
+
+		
 	def handleParseError(self, error):
 		handleParseError(self.lineNumber, self.line, error)
 		
@@ -120,12 +141,17 @@ class Action:
 				self.archiveIs("true")
 				continue
 			if token == "not spam" or token == "never spam":
-				self.containsIs("true")
+				self.neverSpamIs("true")
 				continue
 			if token == "mark as important" or token == "mark important" or token == "important":
 				self.importantIs("true")
 				continue
 			
+			x = re.match(r'label "(.+)"', each)
+			if x:
+				self.labelIs(x.group(1))
+				continue
+				
 			self.handleParseError("unrecognised token '{}'".format(token))
 			
 	def assemble(self):

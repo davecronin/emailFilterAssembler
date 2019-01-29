@@ -2,12 +2,40 @@
 
 import argparse
 import os
+from copy import deepcopy
 
 from Parser import Parser
 from XmlHelper import XmlHelper
 from Helpers import globals, goToFailure, trace
 
 
+class Flattener():
+
+	def __init__(self):
+		self.finalFilters = []
+		self.stack = []
+		
+	def genFinalFilter(self):
+		tmp = deepcopy(self.stack)
+		result = tmp[0]
+		for each in tmp[1:]:
+			result.merge(each)
+		self.finalFilters.append(result)
+
+	def flatten(self, filters):
+		assert isinstance(filters, list)
+
+		for each in filters:
+			self.stack.append(each)
+			if each.childStatements:
+				self.flatten(each.childStatements)
+			else:
+				self.genFinalFilter()
+			self.stack.pop()
+		if self.stack: #exception for when the very last entry is popped
+			self.genFinalFilter()
+		return self.finalFilters
+	
 def assemble(filters):
 	assert isinstance(filters, list)
 	xml = XmlHelper()
@@ -22,7 +50,11 @@ def main(inFile, outFile):
 	parser = Parser()
 	filters = parser.parse(contents)
 
-	xml = assemble(filters) 
+	finalFilters = Flattener().flatten(filters)
+
+	for each in finalFilters: print each
+
+	xml = assemble(finalFilters) 
 
 	trace("The generated xml output is as follows:\n%s" % xml)
 

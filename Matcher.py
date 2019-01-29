@@ -36,11 +36,52 @@ class Matcher:
 		if self.subject_:
 			str += " with subject '%s'" % self.subject_  
 		if self.contains_:
-			str += " containing '%s'" % self.hasWord_  
+			str += " containing '%s'" % self.contains_  
 		if self.notContains_:
-			str += " not containing '%s'" % self.hasWord_  
+			str += " not containing '%s'" % self.notContains_  
 		return str
 		
+	# TODO if self.attr is None then we will have an &amp; at the beginning for no reason
+	def merge(self, other):
+		if not other:
+			assert 0
+			
+		if other.from_:
+			if self.from_:
+				self.from_ += " || " + other.from_ # TODO we should probably error here
+			else:
+				self.from_ = other.from_
+				
+		if other.to_:
+			if self.to_:
+				self.to_ += " &amp; " + other.to_
+			else:
+				self.to_ = other.to_
+				
+		if other.subject_:
+			if self.subject_:
+				self.subject_ += " &amp; " + other.subject_
+			else:
+				self.subject_ = other.subject_
+			
+		if other.contains_:
+			if self.contains_:
+				self.contains_ += " &amp; " + other.contains_
+			else:
+				self.contains_ = other.contains_
+				
+		if other.notContains_:
+			if self.notContains_:
+				self.notContains_ += " &amp; " + other.notContains_
+			else:
+				self.notContains_ = other.notContains_
+				
+		if other.hasAttachment_:
+			self.hasAttachment_ = other.hasAttachment_
+			
+		if other.excludeChats_:
+			self.excludeChats_ = other.excludeChats_
+
 	def handleParseError(self, error):
 		handleParseError(self.lineNumber, self.line, error)
 		

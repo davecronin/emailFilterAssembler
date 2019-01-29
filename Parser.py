@@ -31,7 +31,7 @@ class Parser():
 		else:
 			handleParseError(lineNumber, line, "failed to find opening brace ({ or [)")
 
-	def parseStatement(self, statement, lineNumber):
+	def parseStatement(self, statement, lineNumber, indentation):
 		# filter out the 'if; from the start
 		tmp = statement[3:].split('->')
 		if len(tmp) != 2:
@@ -47,22 +47,45 @@ class Parser():
 		else:
 			result = Action(result, statement, lineNumber)
 		filter = Filter(condition, result)
-		self.filters.append(filter)
+		
+		if indentation == 0:
+			self.filters.append(filter)
+			return
+		
+		if not self.filters:
+			handleParseError(lineNumber, statement, "Invalid indentation, this line has no parent")
+		
+		parentFilter = self.filters[-1]
+		indentation -= 1
+		
+		while (indentation > 0):
+			if not parentFilter.childStatements:
+				handleParseError(lineNumber, statement, "Invalid indentation, this line is over indented")
+			parentFilter = parentFilter.childStatements[-1]
+			indentation -= 1
+		parentFilter.addChild(filter)
 	
 	def parse(self, fileContents):
 		lines = fileContents.split('\n')
 		for lineNumber, line in enumerate(lines):
-			if not len(line) or line[0] == '#':
-			#skip over empty lines and comments,
+			if not len(line.lstrip()) or line[0] == '#':
+			# skip over empty lines and comments,
 				continue
+			# get indentation
+			indentation = line.count('\t')
+			line = line.lstrip()
+			indentation -= line.count('\t')
+			
 			keyword = re.search(r'[a-zA-Z0-9]+', line)
 			if keyword is None:
 				handleParseError(lineNumber, line, "Can't find opening valid token")
 			keyword = keyword.group(0)
 			if keyword == 'if':
-				self.parseStatement(line, lineNumber)
+				self.parseStatement(line, lineNumber, indentation)
 				continue
 			else:
+				if indentation > 0:
+					handleParseError(lineNumber, line, "Variables shouldn't be indented")
 				self.parseVariable(keyword, line[len(keyword):].lstrip(), line, lineNumber)
 				continue
 		return self.filters
