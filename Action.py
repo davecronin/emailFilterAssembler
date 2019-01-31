@@ -2,7 +2,7 @@
 
 import re
 
-from Helpers import handleParseError
+from Helpers import handleParseError, labelWarning
 
 class Action:
 	def __init__(self, content, line, lineNumber):
@@ -77,6 +77,8 @@ class Action:
 			self.label_ = str
 		else:
 			self.handleParseError("Can only set 'label' once per Matcher.")
+		if '/' in self.label_:
+			labelWarning(self.label_)
 			
 	def markAsReadIs(self, str):
 		if self.markAsRead_ is None:

@@ -54,25 +54,25 @@ class Matcher:
 				
 		if other.to_:
 			if self.to_:
-				self.to_ += " &amp; " + other.to_
+				self.to_ += " & " + other.to_
 			else:
 				self.to_ = other.to_
 				
 		if other.subject_:
 			if self.subject_:
-				self.subject_ += " &amp; " + other.subject_
+				self.subject_ += " & " + other.subject_
 			else:
 				self.subject_ = other.subject_
 			
 		if other.contains_:
 			if self.contains_:
-				self.contains_ += " &amp; " + other.contains_
+				self.contains_ += " & " + other.contains_
 			else:
 				self.contains_ = other.contains_
 				
 		if other.notContains_:
 			if self.notContains_:
-				self.notContains_ += " &amp; " + other.notContains_
+				self.notContains_ += " & " + other.notContains_
 			else:
 				self.notContains_ = other.notContains_
 				
@@ -135,9 +135,8 @@ class Matcher:
 			if token == "contains":
 				self.containsIs(matcher)
 				continue
-				
 			if token == "notContains":
-				self.containsIs(matcher)
+				self.notContainsIs(matcher)
 				continue
 			
 			self.handleParseError("unrecognised token '{}'".format(token))
@@ -153,6 +152,8 @@ class Matcher:
 			lines.append(("subject", self.subject_))
 		if self.contains_ is not None:
 			lines.append(("hasTheWord", self.contains_))
+		if self.notContains_ is not None:
+			lines.append(("doesNotHaveTheWord", self.notContains_))
 		if self.hasAttachment_ is not None:
 			lines.append(("hasAttachment", self.hasAttachment_))
 		if self.excludeChats_ is not None:

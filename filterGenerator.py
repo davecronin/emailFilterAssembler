@@ -10,7 +10,6 @@ from Helpers import globals, goToFailure, trace
 
 
 class Flattener():
-
 	def __init__(self):
 		self.finalFilters = []
 		self.stack = []
@@ -36,6 +35,7 @@ class Flattener():
 			self.genFinalFilter()
 		return self.finalFilters
 	
+	
 def assemble(filters):
 	assert isinstance(filters, list)
 	xml = XmlHelper()
@@ -51,8 +51,6 @@ def main(inFile, outFile):
 	filters = parser.parse(contents)
 
 	finalFilters = Flattener().flatten(filters)
-
-	for each in finalFilters: print each
 
 	xml = assemble(finalFilters) 
 
