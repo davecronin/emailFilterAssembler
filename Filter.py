@@ -42,7 +42,11 @@ class Filter:
 		# can discard information about children
 		self.childStatements = []
 		self.condition.merge(other.condition)
-		self.result.overrideWith(other.result)
+		if self.result:
+			if other.result:
+				self.result.overrideWith(other.result)
+		else:
+			self.result = other.result
 			
 	def __str__(self):
 		return self.__repr__()

@@ -8,12 +8,19 @@ from Filter import Filter
 from Helpers import handleParseError, goToFailure
 
 class Parser():
+	'''
+	Takes in the contents of a file and parses it, checking for syntax errors and creating
+	the specified variables, Actions and Matchers, and creating the Filter tree specified 
+	using	these.
+	'''
 	def __init__(self):
 		self.matchers = {}
 		self.actions = {}
 		self.filters = []
 		
+		
 	def parseVariable(self, keyword, value, line, lineNumber):
+		'''Parses variable lines. eg x = [|{ content }|]'''
 		if value[0] != '=':
 			handleParseError(lineNumber, line, 
 			                 "Assignment operator '=' not found.")
@@ -31,22 +38,36 @@ class Parser():
 		else:
 			handleParseError(lineNumber, line, "failed to find opening brace ({ or [)")
 
+
 	def parseStatement(self, statement, lineNumber, indentation):
+		'''
+		Parses statement lines. eg if matcher -> action. Also tracks indentation to create
+		nested statements.
+		'''
 		# filter out the 'if; from the start
 		tmp = statement[3:].split('->')
 		if len(tmp) != 2:
 			handleParseError(lineNumber, statement, "Missing '->'.")
+		
 		condition = tmp[0].lstrip().rstrip()
 		result = tmp[1].lstrip().rstrip()
+		
+		if not condition:
+			handleParseError(lineNumber, statement, "Missing Matcher before ->.")
 		if condition in self.matchers:
 			condition = self.matchers[condition]
 		else:
 			condition = Matcher(condition, statement, lineNumber)
-		if result in self.actions:
-			result = self.actions[result]
+		
+		# need to handle there not being a specified result	
+		if not result:
+			filter = Filter(condition)
 		else:
-			result = Action(result, statement, lineNumber)
-		filter = Filter(condition, result)
+			if result in self.actions:
+				result = self.actions[result]
+			else:
+				result = Action(result, statement, lineNumber)
+			filter = Filter(condition, result)
 		
 		if indentation == 0:
 			self.filters.append(filter)
@@ -66,6 +87,11 @@ class Parser():
 		parentFilter.addChild(filter)
 	
 	def parse(self, fileContents):
+		'''
+		Main parsing function that splits file into lines and checks if they're variables
+		or statements. Keeps track of indentation. Note that variables and statements must
+		be on a single line.
+		'''
 		lines = fileContents.split('\n')
 		for lineNumber, line in enumerate(lines):
 			lineNumber += 1 # since it starts at 0
