@@ -18,7 +18,7 @@ class Action:
 		self.smartLabel_ = None # Not supported yet
 		
 		if content[0]!='[' or content[-1] != ']':
-			assert(0), "Matcher must have enclosing []"
+			assert 0, "Matcher must have enclosing []"
 		# TODO should check for non escaped commas in future
 		content = content[1:-1].split(',')
 		content = [ each.lstrip() for each in content]

@@ -30,7 +30,7 @@ class Matcher:
 			
 		if other.from_:
 			if self.from_:
-				self.from_ += " || " + other.from_ # TODO we should probably error here
+				self.from_ += " || " + other.from_
 			else:
 				self.from_ = other.from_
 				
