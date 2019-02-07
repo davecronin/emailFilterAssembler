@@ -2,41 +2,15 @@
 
 import argparse
 import os
-from copy import deepcopy
 
 from Parser import Parser
 from XmlHelper import XmlHelper
-from Helpers import globals, goToFailure, trace
+from Helpers import initGlobals, goToFailure, trace
+from Flattener import Flattener
 
 
-class Flattener():
-	def __init__(self):
-		self.finalFilters = []
-		self.stack = []
-		
-	def genFinalFilter(self):
-		tmp = deepcopy(self.stack)
-		result = tmp[0]
-		for each in tmp[1:]:
-			result.merge(each)
-		self.finalFilters.append(result)
-
-	def flatten(self, filters):
-		assert isinstance(filters, list)
-
-		for each in filters:
-			self.stack.append(each)
-			if each.childStatements:
-				self.flatten(each.childStatements)
-			else:
-				self.genFinalFilter()
-			self.stack.pop()
-		if self.stack: #exception for when the very last entry is popped
-			self.genFinalFilter()
-		return self.finalFilters
-	
-	
 def assemble(filters):
+	'''Convert a list of Filters to an XML document with each Filter as an entry.'''
 	assert isinstance(filters, list)
 	xml = XmlHelper()
 	
@@ -47,11 +21,15 @@ def assemble(filters):
 	
 def main(inFile, outFile):
 	contents = inFile.read()
-	parser = Parser()
-	filters = parser.parse(contents)
+	
+	# Parse the input into something like an AST with abstractions
+	# for Matchers and Actions in a tree structure.
+	filters = Parser().parse(contents)
 
+	# Flatten out the tree such that there is a filter for every node in the tree.
 	finalFilters = Flattener().flatten(filters)
 
+	# convert the filters to XML
 	xml = assemble(finalFilters) 
 
 	trace("The generated xml output is as follows:\n%s" % xml)
@@ -67,8 +45,9 @@ if __name__ == "__main__":
 	parser.add_argument('--pdb', action='store_true', help='Catch failures in pdb.')
 	args = parser.parse_args()
 	
-	globals(args.pdb, args.trace)
+	initGlobals(args.pdb, args.trace)
 	
+	# If the trace argument was provided then this will be printed
 	trace("Tracing is turned on for this run.")
 	
 	try:

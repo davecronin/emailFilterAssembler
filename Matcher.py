@@ -101,19 +101,19 @@ class Matcher:
 		if self.subject_ is None:
 			self.subject_ = str
 		else:
-			print self.handleParseError("Can only set'subject' once per Matcher.")
+			self.handleParseError("Can only set 'subject' once per Matcher.")
 		
 	def containsIs(self, str):
 		if self.contains_ is None:
 			self.contains_ = str
 		else:
-			print self.handleParseError("Can only set 'contain' once per Matcher.")
+			self.handleParseError("Can only set 'contain' once per Matcher.")
 	
 	def notContainsIs(self, str):
 		if self.notContains_ is None:
 			self.notContains_ = str
 		else:
-			print self.handleParseError("Can only set 'notContain' once per Matcher.")	
+			self.handleParseError("Can only set 'notContain' once per Matcher.")	
 		
 	def compile(self):
 		for each in self.input:
