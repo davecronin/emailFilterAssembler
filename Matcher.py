@@ -5,6 +5,11 @@ import re
 from Helpers import handleParseError
 
 class Matcher:
+	'''
+	Class to represent the possible matching criteria a filter can posses. It is responsible
+	for parsing the contents between {} to compile its attributes, merging with other 
+	Matchers and values for the XML representation of itself.
+	'''
 	def __init__(self, content, line, lineNumber):
 		self.line = line
 		self.lineNumber = lineNumber
@@ -25,6 +30,7 @@ class Matcher:
 		self.compile()
 		
 	def merge(self, other):
+		'''Merge the matching criteria of this Matcher with another, using OR/AND operators'''
 		if not other:
 			assert 0
 			
@@ -68,12 +74,17 @@ class Matcher:
 		handleParseError(self.lineNumber, self.line, error)
 		
 	def set(self, attr, str):
+		'''Generic setter for criteria only allowing them to be set once.'''
 		if getattr(self, attr + '_') is None:
 			setattr(self, attr + '_', str)
 		else:
 			self.handleParseError("Can only set '{}' once per Matcher.".format(attr))
 		
 	def compile(self):
+		'''
+		Parse the contents between {} to assign values to self. Each attribute can only
+		be set once. 
+		'''
 		for each in self.input:
 			x = re.match(r'([a-zA-Z0-9]+) "(.+)"', each)
 			if x is None:
@@ -100,6 +111,7 @@ class Matcher:
 			self.handleParseError("unrecognised token '{}'".format(token))			
 		
 	def assemble(self):
+		'''Produces a list of values to represent self in XML'''
 		lines = []
 		if self.from_ is not None:
 			lines.append(("from", self.from_))

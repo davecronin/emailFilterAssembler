@@ -5,6 +5,11 @@ import re
 from Helpers import handleParseError, labelWarning
 
 class Action:
+	'''
+	Class to represent the possible actions of a filter. It is responsible
+	for parsing the contents between [] to compile its attributes, merging with other 
+	Actions and producing values for the XML representation of itself.
+	'''
 	def __init__(self, content, line, lineNumber):
 		self.line = line
 		self.lineNumber = lineNumber		
@@ -26,6 +31,7 @@ class Action:
 		self.compile()
 		
 	def overrideWith(self, other):
+		'''Overriding this Matcher with another, preferring the values of the other '''
 		if not other:
 			assert 0
 		if other.label_:
@@ -49,6 +55,7 @@ class Action:
 		handleParseError(self.lineNumber, self.line, error)
 		
 	def set(self, attr, str):
+		'''Generic setter for attrs only allowing them to be set once.'''
 		if getattr(self, attr + '_') is None:
 			setattr(self, attr + '_', str)
 		else:
@@ -57,6 +64,10 @@ class Action:
 			labelWarning(self.label_)
 						
 	def compile(self):
+		'''
+		Parse the contents between [] to assign values to self. Each attribute can only
+		be set once. 
+		'''
 		for each in self.content:
 			x = re.match(r'(.+)', each)
 			if x is None:
@@ -91,6 +102,7 @@ class Action:
 			self.handleParseError("unrecognised token '{}'".format(token))
 			
 	def assemble(self):
+		'''Produces a list of values to represent self in XML'''
 		lines = []
 		if self.label_ is not None:
 			lines.append(("label", self.label_))
