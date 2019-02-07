@@ -67,35 +67,11 @@ class Matcher:
 	def handleParseError(self, error):
 		handleParseError(self.lineNumber, self.line, error)
 		
-	def fromIs(self, str):
-		if self.from_ is None:
-			self.from_ = str
+	def set(self, attr, str):
+		if getattr(self, attr + '_') is None:
+			setattr(self, attr + '_', str)
 		else:
-			self.handleParseError("Can only set 'from' once per Matcher.")
-			
-	def toIs(self, str):
-		if self.to_ is None:
-			self.to_ = str
-		else:
-			self.handleParseError("Can only set 'to' once per Matcher.")
-		
-	def subjectIs(self, str):
-		if self.subject_ is None:
-			self.subject_ = str
-		else:
-			self.handleParseError("Can only set 'subject' once per Matcher.")
-		
-	def containsIs(self, str):
-		if self.contains_ is None:
-			self.contains_ = str
-		else:
-			self.handleParseError("Can only set 'contain' once per Matcher.")
-	
-	def notContainsIs(self, str):
-		if self.notContains_ is None:
-			self.notContains_ = str
-		else:
-			self.handleParseError("Can only set 'notContain' once per Matcher.")	
+			self.handleParseError("Can only set '{}' once per Matcher.".format(attr))
 		
 	def compile(self):
 		for each in self.input:
@@ -106,19 +82,19 @@ class Matcher:
 			matcher = x.group(2)
 			
 			if token == "from":
-				self.fromIs(matcher)
+				self.set("from", matcher)
 				continue
 			if token == "to":
-				self.toIs(matcher)
+				self.set("to", matcher)
 				continue
 			if token == "subject":
-				self.subjectIs(matcher)
+				self.set("subject", matcher)
 				continue
 			if token == "contains":
-				self.containsIs(matcher)
+				self.set("contains", matcher)
 				continue
 			if token == "notContains":
-				self.notContainsIs(matcher)
+				self.set("notContains", matcher)
 				continue
 			
 			self.handleParseError("unrecognised token '{}'".format(token))			

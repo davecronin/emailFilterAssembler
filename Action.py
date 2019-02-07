@@ -48,56 +48,14 @@ class Action:
 	def handleParseError(self, error):
 		handleParseError(self.lineNumber, self.line, error)
 		
-	def labelIs(self, str):
-		if self.label_ is None:
-			self.label_ = str
+	def set(self, attr, str):
+		if getattr(self, attr + '_') is None:
+			setattr(self, attr + '_', str)
 		else:
-			self.handleParseError("Can only set 'label' once per Matcher.")
-		if '/' in self.label_:
+			self.handleParseError("Can only set '{}' once per Action.".format(attr))
+		if 'label' == attr and '/' in str:
 			labelWarning(self.label_)
-			
-	def markAsReadIs(self, str):
-		if self.markAsRead_ is None:
-			self.markAsRead_ = str
-		else:
-			self.handleParseError("Can only set 'markAsRead' once per Matcher.")
-			
-	def starIs(self, str):
-		if self.star_ is None:
-			self.star_ = str
-		else:
-			self.handleParseError("Can only set 'star' once per Matcher.")
-			
-	def deleteIs(self, str):
-		if self.delete_ is None:
-			self.delete_ = str
-		else:
-			self.handleParseError("Can only set 'delete' once per Matcher.")
-			
-	def archiveIs(self, str):
-		if self.archive_ is None:
-			self.archive_ = str
-		else:
-			self.handleParseError("Can only set 'archive' once per Matcher.")
-			
-	def neverSpamIs(self, str):
-		if self.neverSpam_ is None:
-			self.neverSpam_ = str
-		else:
-			self.handleParseError("Can only set 'neverSpam' once per Matcher.")
-			
-	def importantIs(self, str):
-		if self.important_ is None:
-			self.important_ = str
-		else:
-			self.handleParseError("Can only set 'important' once per Matcher.")
-			
-	def smartLabelIs(self, str):
-		if self.smartLastrel_ is None:
-			self.smartLabel_ = str
-		else:
-			self.handleParseError("Can only set 'smartLabel' once per Matcher.")
-			
+						
 	def compile(self):
 		for each in self.content:
 			x = re.match(r'(.+)', each)
@@ -107,27 +65,27 @@ class Action:
 			token = x.group(1)
 			
 			if token == "mark as read" or token == "mark read" or token == "read":
-				self.markAsReadIs("true")
+				self.set("markAsRead", "true")
 				continue
 			if token == "star":
-				self.starIs("true")
+				self.set("star", "true")
 				continue
 			if token == "delete" or token == "bin" or token == "trash":
-				self.deleteIs("true")
+				self.set("delete", "true")
 				continue
 			if token == "archive":
-				self.archiveIs("true")
+				self.set("archive", "true")
 				continue
 			if token == "not spam" or token == "never spam":
-				self.neverSpamIs("true")
+				self.set("neverSpam", "true")
 				continue
 			if token == "mark as important" or token == "mark important" or token == "important":
-				self.importantIs("true")
+				self.set("important", "true")
 				continue
 			
 			x = re.match(r'label "(.+)"', each)
 			if x:
-				self.labelIs(x.group(1))
+				self.set('label', x.group(1))
 				continue
 				
 			self.handleParseError("unrecognised token '{}'".format(token))
