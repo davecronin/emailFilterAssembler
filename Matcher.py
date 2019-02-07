@@ -41,7 +41,6 @@ class Matcher:
 			str += " not containing '%s'" % self.notContains_  
 		return str
 		
-	# TODO if self.attr is None then we will have an &amp; at the beginning for no reason
 	def merge(self, other):
 		if not other:
 			assert 0
