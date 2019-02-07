@@ -15,7 +15,9 @@ def assemble(filters):
 	xml = XmlHelper()
 	
 	for filter in filters:
-		xml.addEntry(filter.assemble())
+		entry = filter.assemble()
+		if entry:
+			xml.addEntry(entry)
 	return str(xml)
 
 	

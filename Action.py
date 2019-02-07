@@ -25,29 +25,6 @@ class Action:
 		self.content=content
 		self.compile()
 		
-	def __str__(self):
-		return self.__repr__()
-		
-	def __repr__(self):
-		str = "Action:"
-		if self.label_:
-			str += " apply label '%s'" % self.label_  
-		if self.markAsRead_:
-			str += " mark as read,"
-		if self.star_:
-			str += " star,"
-		if self.delete_:
-			str += " delete,"
-		if self.archive_:
-			str += " archive,"
-		if self.neverSpam_:
-			str += " don't treat as spam,"
-		if self.important_:
-			str += " mark as important,"
-		if self.smartLabel_:
-			str += " apply smark label '%s'" % self.smartLabel_  
-		return str[:-1]
-		
 	def overrideWith(self, other):
 		if not other:
 			assert 0
@@ -67,8 +44,7 @@ class Action:
 			self.important_ = other.important_
 		if other.smartLabel_:
 			self.smartLabel_ = other.smartLabel_
-
-		
+	
 	def handleParseError(self, error):
 		handleParseError(self.lineNumber, self.line, error)
 		
@@ -174,4 +150,27 @@ class Action:
 			lines.append(("shouldAlwaysMarkAsImportant", self.important_))
 		if self.smartLabel_ is not None:
 			lines.append(("smartLabelToApply", self.smartLabel_))
-		return lines
+		return lines	
+				
+	def __str__(self):
+		return self.__repr__()
+		
+	def __repr__(self):
+		str = "Action:"
+		if self.label_:
+			str += " apply label '%s'" % self.label_  
+		if self.markAsRead_:
+			str += " mark as read,"
+		if self.star_:
+			str += " star,"
+		if self.delete_:
+			str += " delete,"
+		if self.archive_:
+			str += " archive,"
+		if self.neverSpam_:
+			str += " don't treat as spam,"
+		if self.important_:
+			str += " mark as important,"
+		if self.smartLabel_:
+			str += " apply smark label '%s'" % self.smartLabel_  
+		return str[:-1]

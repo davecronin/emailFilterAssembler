@@ -60,7 +60,7 @@ class Parser():
 		
 		while (indentation > 0):
 			if not parentFilter.childStatements:
-				handleParseError(lineNumber, statement, "Invalid indentation, this line is over indented")
+				handleParseError(lineNumber, statement, "Invalid indentation, this line has no parent")
 			parentFilter = parentFilter.childStatements[-1]
 			indentation -= 1
 		parentFilter.addChild(filter)
@@ -68,7 +68,9 @@ class Parser():
 	def parse(self, fileContents):
 		lines = fileContents.split('\n')
 		for lineNumber, line in enumerate(lines):
-			if not len(line.lstrip()) or line[0] == '#':
+			lineNumber += 1 # since it starts at 0
+			tmp = line.lstrip()
+			if not len(tmp) or tmp[0] == '#':
 			# skip over empty lines and comments,
 				continue
 			# get indentation

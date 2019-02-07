@@ -24,23 +24,6 @@ class Matcher:
 		self.input=content
 		self.compile()
 		
-	def __str__(self):
-		return self.__repr__()
-		
-	def __repr__(self):
-		str = "Matcher:"
-		if self.from_:
-			str += " from '%s'" % self.from_  
-		if self.to_:
-			str += " to '%s'" % self.to_  
-		if self.subject_:
-			str += " with subject '%s'" % self.subject_  
-		if self.contains_:
-			str += " containing '%s'" % self.contains_  
-		if self.notContains_:
-			str += " not containing '%s'" % self.notContains_  
-		return str
-		
 	def merge(self, other):
 		if not other:
 			assert 0
@@ -138,8 +121,7 @@ class Matcher:
 				self.notContainsIs(matcher)
 				continue
 			
-			self.handleParseError("unrecognised token '{}'".format(token))
-			
+			self.handleParseError("unrecognised token '{}'".format(token))			
 		
 	def assemble(self):
 		lines = []
@@ -158,3 +140,20 @@ class Matcher:
 		if self.excludeChats_ is not None:
 			lines.append(("excludeChats", self.excludeChats_))
 		return lines
+
+	def __str__(self):
+		return self.__repr__()
+		
+	def __repr__(self):
+		str = "Matcher:"
+		if self.from_:
+			str += " from '%s'" % self.from_  
+		if self.to_:
+			str += " to '%s'" % self.to_  
+		if self.subject_:
+			str += " with subject '%s'" % self.subject_  
+		if self.contains_:
+			str += " containing '%s'" % self.contains_  
+		if self.notContains_:
+			str += " not containing '%s'" % self.notContains_  
+		return str
