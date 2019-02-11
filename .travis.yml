@@ -5,6 +5,6 @@ python:
 - "3.3"
 - "3.4"
 - "3.5"
-- "3.6"i
+- "3.6"
 script:
 - test/testHandler.py
