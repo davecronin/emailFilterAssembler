@@ -8,17 +8,17 @@ def runTests():
 	tests = glob.glob("./test/*.xmf")
 	for test in tests:
 		# change xmf to xml
-		outFile = test[:-1] + 'l'	
-		cmd = ["python", "main.py", test, outFile ]
-		if 'FAIL' in test:
+		outFile = test[:-4]	
+		cmd = ["python", "main.py", test, outFile+".xml" ]
+		if 'STDOUT' in test:
 			res = subprocess.check_output(cmd + ["--ignoreParseErrors"])
-			with open(test+".expected", "r") as expectedOutput:
+			with open(outFile+".txt", "r") as expectedOutput:
 				if res != expectedOutput.read():
 					assert False, "Failed test case %s" % test
-		else:
+		elif 'XML' in test:
 			res = subprocess.check_output(cmd)
-			with open(outFile, "r") as output:
-				with open(outFile+".expected", "r") as expectedOutput:
+			with open(outFile+".xml", "r") as output:
+				with open(outFile+".expected.xml", "r") as expectedOutput:
 					if output.read() != expectedOutput.read():
 						assert False, "Failed test case %s" % test
 			
