@@ -2,8 +2,7 @@
 
 import glob
 import subprocess
-
-
+	
 def runTests():
 	tests = glob.glob("./test/*.xmf")
 	for test in tests:
@@ -15,7 +14,7 @@ def runTests():
 			with open(outFile+".txt", "r") as expectedOutput:
 				if res != expectedOutput.read():
 					assert False, "Failed test case %s" % test
-		elif 'XML' in test:
+		if 'XML' in test:
 			res = subprocess.check_output(cmd)
 			with open(outFile+".xml", "r") as output:
 				with open(outFile+".expected.xml", "r") as expectedOutput:

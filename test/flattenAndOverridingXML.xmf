@@ -1,0 +1,20 @@
+a1 = {to "1"}
+a2 = {to "2"}
+a3 = {to "3"}
+a4 = {to "4"}
+a5 = {to "5"}
+a6 = {to "6"}
+
+pattern1 = [star, archive]
+pattern2 = [mark as read]
+pattern3 = [archive, label "veryimportant"]
+pattern4 = [not spam, label "reallyimportant"]
+pattern5 = [delete]
+pattern6 = [important]
+
+if a1 -> pattern1
+	if a2 -> pattern2
+	if a3 -> pattern3
+		if a4 -> pattern4
+		if a5 -> pattern5
+			if a6 -> pattern6

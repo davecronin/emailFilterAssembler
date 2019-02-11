@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+	<title>Mail Filters</title>
+	<id>tag:mail.google.com,2008:filters:4366218717592519022</id>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='me'/>
+		<apps:property name='label' value='a/b'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='you'/>
+		<apps:property name='label' value='c/b'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='him'/>
+		<apps:property name='label' value='a/b'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='her'/>
+		<apps:property name='label' value='c/b'/>
+	</entry>
+</feed>

@@ -1,0 +1,6 @@
+Warning, the label 'a/b' contains a '/' which you might be using to indicate nested/sub labels or folders. When uploading filters to gmail the importer treats the / as part of the label name, and creates the label as such.
+It does not create a nested label with this information. However if a nested label aleardy exists, it will use it. So please create any nested labels first manually in gmail. Regular labels will be created automatically on import.
+Sorry for the inconvenience this causes.
+
+Warning, another potentially nested label 'c/b'
+

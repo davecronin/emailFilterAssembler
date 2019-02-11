@@ -70,7 +70,7 @@ if __name__ == "__main__":
 		inFile = open(args.input_file, "r")
 	except:
 		print("The input file '{}' does not exits.".format(args.input_file))
-		exit(1)
+		exit(-1)
 	
 	try:
 		main(inFile, args.output_file, args.ignoreParseErrors)

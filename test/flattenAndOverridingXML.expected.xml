@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+	<title>Mail Filters</title>
+	<id>tag:mail.google.com,2008:filters:4366218717592519022</id>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='1 &amp; 2'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+		<apps:property name='shouldStar' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='1 &amp; 3 &amp; 4'/>
+		<apps:property name='label' value='reallyimportant'/>
+		<apps:property name='shouldStar' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldNeverSpam' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='1 &amp; 3 &amp; 5 &amp; 6'/>
+		<apps:property name='label' value='veryimportant'/>
+		<apps:property name='shouldStar' value='true'/>
+		<apps:property name='shouldTrash' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+		<apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='1 &amp; 3 &amp; 5'/>
+		<apps:property name='label' value='veryimportant'/>
+		<apps:property name='shouldStar' value='true'/>
+		<apps:property name='shouldTrash' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='1 &amp; 3'/>
+		<apps:property name='label' value='veryimportant'/>
+		<apps:property name='shouldStar' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='1'/>
+		<apps:property name='shouldStar' value='true'/>
+		<apps:property name='shouldArchive' value='true'/>
+	</entry>
+</feed>

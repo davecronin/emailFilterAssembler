@@ -1,0 +1,7 @@
+test = [label "a/b"]
+test2 = [label "c/b"]
+
+if {to "me"} -> test
+if {to "you"} -> test2
+if {to "him"} -> test
+if {to "her"} -> test2
