@@ -8,7 +8,7 @@ def runTests():
 	for test in tests:
 		# change xmf to xml
 		outFile = test[:-4]	
-		cmd = ["python", "main.py", test, outFile+".xml" ]
+		cmd = ["./main.py", test, outFile+".xml" ]
 		if 'STDOUT' in test:
 			res = subprocess.check_output(cmd + ["--ignoreParseErrors"])
 			with open(outFile+".txt", "r") as expectedOutput:
