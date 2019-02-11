@@ -54,3 +54,8 @@ if b -> a
 
 if {} -> [read]
 if {to "test"} -> [ ]
+
+a
+a = 
+b 
+b =

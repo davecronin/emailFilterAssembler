@@ -28,3 +28,7 @@ Line 52: if a -> a => Unknown Action or missing [] after ->.
 Line 53: if b -> a => Unknown Matcher or missing {} before ->.
 Line 55: if {} -> [read] => Failed to find pattern 'token "Matcher"' in ''.
 Line 56: if {to "test"} -> [ ] => failed to find token
+Line 58: a => No = after variable name
+Line 59: a =  => Nothing found after assignment operator.
+Line 60: b  => No = after variable name
+Line 61: b = => Nothing found after assignment operator.

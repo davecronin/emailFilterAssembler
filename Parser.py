@@ -25,6 +25,8 @@ class Parser():
 			return handleParseError(lineNumber, line, 
 			                 "Assignment operator '=' not found.")
 		value = value[1:].lstrip().rstrip()
+		if not value:
+			return handleParseError(lineNumber, line, "Nothing found after assignment operator.")
 		if value[0] == '{':
 			if value[-1] == '}':
 				self.matchers[keyword] = Matcher(value, line, lineNumber)
@@ -119,7 +121,11 @@ class Parser():
 				if indentation > 0:
 					handleParseError(lineNumber, line, "Variables shouldn't be indented")
 					continue
-				self.parseVariable(keyword, line[len(keyword):].lstrip(), line, lineNumber)
+				tmp = line[len(keyword):].lstrip()
+				if not tmp:
+					handleParseError(lineNumber, line, "No = after variable name")
+					continue
+				self.parseVariable(keyword, tmp, line, lineNumber)
 				continue
 		return self.filters
 		
