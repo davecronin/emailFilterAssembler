@@ -13,13 +13,14 @@ def runTests():
 			res = subprocess.check_output(cmd + ["--ignoreParseErrors"])
 			with open(outFile+".txt", "r") as expectedOutput:
 				if res != expectedOutput.read():
-					assert False, "Failed test case %s" % test
+					assert False, "Failed test case %s".format(test)
 		if 'XML' in test:
 			res = subprocess.check_output(cmd)
 			with open(outFile+".xml", "r") as output:
 				with open(outFile+".expected.xml", "r") as expectedOutput:
 					if output.read() != expectedOutput.read():
-						assert False, "Failed test case %s" % test
-			
+						assert False, "Failed test case %s".format(test)
+		print "TEST PASSED {}".format(test)
+					
 if __name__ == "__main__":
 	runTests()
