@@ -24,6 +24,13 @@ testImp1 = [important]
 testImp2 = [mark important]
 testImp3 = [mark as important]
 
+# verify xml is escaped
+test1 = {from "test1 & test2"}
+test2 = {from "test1 <test2>"}
+test3 = {from "test1 'test2'"}
+if test1 -> [read]
+if test2 -> [read]
+if test3 -> [read]
 
 if a -> 1
 if abcdefghijklmnopqrstuvwxyz -> 1234567890

@@ -5,6 +5,27 @@
 		<category term='filter'></category>
 		<title>Mail Filter</title>
 		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='from' value='test1 &amp; test2'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='from' value='test1 &lt;test2>'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='from' value='test1 &apos;test2&apos;'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
 		<apps:property name='to' value='test'/>
 		<apps:property name='shouldMarkAsRead' value='true'/>
 	</entry>
