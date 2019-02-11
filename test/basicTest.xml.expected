@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?><feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+	<title>Mail Filters</title>
+	<id>tag:mail.google.com,2008:filters:4366218717592519022</id>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='from' value='testFrom'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='testTo'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='subject' value='testSub'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='hasTheWord' value='testCon'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='doesNotHaveTheWord' value='testNotCon'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldMarkAsRead' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldStar' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldTrash' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldArchive' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldNeverSpam' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldNeverSpam' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
+	</entry>
+	<entry>
+		<category term='filter'></category>
+		<title>Mail Filter</title>
+		<id>tag:mail.google.com,2008:filter:4366218717592519022</id>
+		<apps:property name='to' value='test'/>
+		<apps:property name='shouldAlwaysMarkAsImportant' value='true'/>
+	</entry>
+</feed>

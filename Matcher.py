@@ -34,7 +34,7 @@ class Matcher:
 		if not other:
 			assert 0
 			
-		if other.from_:
+		if other.from_: # This probably doesn't make sense in the syntax
 			if self.from_:
 				self.from_ += " || " + other.from_
 			else:
@@ -88,7 +88,7 @@ class Matcher:
 		for each in self.input:
 			x = re.match(r'([a-zA-Z0-9]+) "(.+)"', each)
 			if x is None:
-				self.handleParseError("Failed to find pattern 'token \"Matcher\"' in '{}'.".format(each))
+				return self.handleParseError("Failed to find pattern 'token \"Matcher\"' in '{}'.".format(each))
 			token = x.group(1)
 			matcher = x.group(2)
 			

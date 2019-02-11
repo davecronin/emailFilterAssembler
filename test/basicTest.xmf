@@ -1,0 +1,45 @@
+#Verify allowed variable names
+a = {to "test"}
+abcdefghijklmnopqrstuvwxyz = {to "test"}
+1 = [read]
+1234567890 = [read]
+
+# Verify each Matcher attribute gets set correctly
+testFrom = {from "testFrom"}
+testTo = {to "testTo"}
+testSub = {subject "testSub"}
+testCon = {contains "testCon"}
+testNotCon = {notContains "testNotCon"}
+
+# Verify each Action attribute gets set correctly
+testRead1 = [read]
+testRead2 = [mark read]
+testRead3 = [mark as read]
+testStar = [star]
+testDel = [delete]
+testArchive = [archive]
+testSpam1 = [not spam]
+testSpam2 = [never spam]
+testImp1 = [important]
+testImp2 = [mark important]
+testImp3 = [mark as important]
+
+
+if a -> 1
+if abcdefghijklmnopqrstuvwxyz -> 1234567890
+if testFrom -> 1
+if testTo -> 1
+if testSub -> 1
+if testCon -> 1
+if testNotCon -> 1
+if a -> testRead1
+if a -> testRead2
+if a -> testRead3
+if a -> testStar
+if a -> testDel
+if a -> testArchive
+if a -> testSpam1
+if a -> testSpam2
+if a -> testImp1
+if a -> testImp2
+if a -> testImp3

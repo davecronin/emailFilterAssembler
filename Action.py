@@ -23,7 +23,7 @@ class Action:
 		self.smartLabel_ = None # Not supported yet
 		
 		if content[0]!='[' or content[-1] != ']':
-			assert 0, "Matcher must have enclosing []"
+			assert 0, "Action must have enclosing []"
 		# TODO should check for non escaped commas in future
 		content = content[1:-1].split(',')
 		content = [ each.lstrip() for each in content]
@@ -59,7 +59,7 @@ class Action:
 		if getattr(self, attr + '_') is None:
 			setattr(self, attr + '_', str)
 		else:
-			self.handleParseError("Can only set '{}' once per Action.".format(attr))
+			return self.handleParseError("Can only set '{}' once per Action.".format(attr))
 		if 'label' == attr and '/' in str:
 			labelWarning(self.label_)
 						
@@ -71,7 +71,7 @@ class Action:
 		for each in self.content:
 			x = re.match(r'(.+)', each)
 			if x is None:
-				self.handleParseError("failed to find token".format(each))
+				return self.handleParseError("failed to find token".format(each))
 			assert len(x.groups()) == 1
 			token = x.group(1)
 			

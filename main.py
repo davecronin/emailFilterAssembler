@@ -21,22 +21,32 @@ def assemble(filters):
 	return str(xml)
 
 	
-def main(inFile, outFile):
+def main(inFile, outFile, exitAfterParsing):
 	contents = inFile.read()
 	
 	# Parse the input into something like an AST with abstractions
 	# for Matchers and Actions in a tree structure.
 	filters = Parser().parse(contents)
 
+	if exitAfterParsing:
+		return
 	# Flatten out the tree such that there is a filter for every node in the tree.
+	
 	finalFilters = Flattener().flatten(filters)
-
+	
 	# convert the filters to XML
 	xml = assemble(finalFilters) 
 
 	trace("The generated xml output is as follows:\n%s" % xml)
 
+	try:	
+		outFile = open(outFile, 'w+')
+	except:
+		print("Cannot open the output file '{}'".format(args.output_file))
+		exit(1)
+
 	outFile.write(xml)
+	outFile.close()
 
 
 if __name__ == "__main__":
@@ -45,9 +55,13 @@ if __name__ == "__main__":
 	parser.add_argument( 'output_file', help="The file to output the filter in XML")
 	parser.add_argument('-t', '--trace', action='store_true', help='Add tracing')
 	parser.add_argument('--pdb', action='store_true', help='Catch failures in pdb.')
+	# Only to be used when testing catching syntax errors
+	parser.add_argument('--ignoreParseErrors', action='store_true', 
+											help=argparse.SUPPRESS)
+											
 	args = parser.parse_args()
 	
-	initGlobals(args.pdb, args.trace)
+	initGlobals(args.pdb, args.trace, args.ignoreParseErrors)
 	
 	# If the trace argument was provided then this will be printed
 	trace("Tracing is turned on for this run.")
@@ -55,15 +69,13 @@ if __name__ == "__main__":
 	try:
 		inFile = open(args.input_file, "r")
 	except:
-		goToFailure("The input file '{}' does not exits.".format(args.output_file))
+		print("The input file '{}' does not exits.".format(args.input_file))
+		exit(1)
 	
-	try:	
-		outFile = open(args.output_file, 'w+')
-	except:
-		goToFailure("Cannot open the output file '{}'".format(args.output_file))
-	
-	main(inFile, outFile)
-	
+	try:
+		main(inFile, args.output_file, args.ignoreParseErrors)
+	except Exception as e:
+		print(e)
+		
 	trace("Finished, closing files.")
 	inFile.close()
-	outFile.close()

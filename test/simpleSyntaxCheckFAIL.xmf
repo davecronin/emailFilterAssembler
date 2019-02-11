@@ -1,0 +1,56 @@
+#Working example
+a = {to "test"}
+
+#failing examples
+ = {to "test"}
+a {to "test"}
+a = to "test"}
+a = { "test"}
+a = {to test"}
+a = {to ""}
+a = {to }
+a = {to "test}
+a = {to "test"
+a = {to test}
+{to test}
+	a = {to "test"}
+
+#Working example
+a  =  {to "test"}
+
+a  =  {to  "test"}
+
+#Working example
+b = [mark as read]
+
+#failing examples
+ = [mark as read]
+b [mark as read]
+b = mark as read]
+b = []
+b = [mark as read
+b = [mark as reed]
+[mark as read]
+	b = [mark as read]
+
+#Working examples
+if a -> b
+if {to "test"} -> [read]
+	if a -> b
+	
+#failing examples	
+a -> b
+if -> b
+if a b
+#should pass
+if a ->
+if a-> b
+if a ->b
+#should fail
+if aa -> b
+if a -> bb
+if a -> a
+if b -> a
+
+if {} -> [read]
+if {to "test"} -> [ ]

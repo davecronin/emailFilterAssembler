@@ -1,0 +1,30 @@
+Line 5: = {to "test"} => Can't find opening valid token
+Line 6: a {to "test"} => Assignment operator '=' not found.
+Line 7: a = to "test"} => failed to find opening brace: { or [
+Line 8: a = { "test"} => Failed to find pattern 'token "Matcher"' in '"test"'.
+Line 9: a = {to test"} => Failed to find pattern 'token "Matcher"' in 'to test"'.
+Line 10: a = {to ""} => Failed to find pattern 'token "Matcher"' in 'to ""'.
+Line 11: a = {to } => Failed to find pattern 'token "Matcher"' in 'to '.
+Line 12: a = {to "test} => Failed to find pattern 'token "Matcher"' in 'to "test'.
+Line 13: a = {to "test" => failed to find closing }
+Line 14: a = {to test} => Failed to find pattern 'token "Matcher"' in 'to test'.
+Line 15: {to test} => Can't find opening valid token
+Line 16: a = {to "test"} => Variables shouldn't be indented
+Line 21: a  =  {to  "test"} => Failed to find pattern 'token "Matcher"' in 'to  "test"'.
+Line 27: = [mark as read] => Can't find opening valid token
+Line 28: b [mark as read] => Assignment operator '=' not found.
+Line 29: b = mark as read] => failed to find opening brace: { or [
+Line 30: b = [] => failed to find token
+Line 31: b = [mark as read => failed to find closing ]
+Line 32: b = [mark as reed] => unrecognised token 'mark as reed'
+Line 33: [mark as read] => Can't find opening valid token
+Line 34: b = [mark as read] => Variables shouldn't be indented
+Line 42: a -> b => Assignment operator '=' not found.
+Line 43: if -> b => Missing Matcher before ->.
+Line 44: if a b => Missing '->'.
+Line 50: if aa -> b => Unknown Matcher or missing {} before ->.
+Line 51: if a -> bb => Unknown Action or missing [] after ->.
+Line 52: if a -> a => Unknown Action or missing [] after ->.
+Line 53: if b -> a => Unknown Matcher or missing {} before ->.
+Line 55: if {} -> [read] => Failed to find pattern 'token "Matcher"' in ''.
+Line 56: if {to "test"} -> [ ] => failed to find token

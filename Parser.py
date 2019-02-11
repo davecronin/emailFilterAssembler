@@ -22,21 +22,21 @@ class Parser():
 	def parseVariable(self, keyword, value, line, lineNumber):
 		'''Parses variable lines. eg x = [|{ content }|]'''
 		if value[0] != '=':
-			handleParseError(lineNumber, line, 
+			return handleParseError(lineNumber, line, 
 			                 "Assignment operator '=' not found.")
-		value = value[1:].lstrip()
+		value = value[1:].lstrip().rstrip()
 		if value[0] == '{':
 			if value[-1] == '}':
 				self.matchers[keyword] = Matcher(value, line, lineNumber)
 			else:
-				handleParseError(lineNumber, line, "failed to find closing }")
+				return handleParseError(lineNumber, line, "failed to find closing }")
 		elif value[0] == '[':
 			if value[-1] == ']':
 				self.actions[keyword] = Action(value, line, lineNumber)
 			else:
-				handleParseError(lineNumber, line, "failed to find closing ]")
+				return handleParseError(lineNumber, line, "failed to find closing ]")
 		else:
-			handleParseError(lineNumber, line, "failed to find opening brace ({ or [)")
+			return handleParseError(lineNumber, line, "failed to find opening brace: { or [")
 
 
 	def parseStatement(self, statement, lineNumber, indentation):
@@ -47,17 +47,19 @@ class Parser():
 		# filter out the 'if; from the start
 		tmp = statement[3:].split('->')
 		if len(tmp) != 2:
-			handleParseError(lineNumber, statement, "Missing '->'.")
+			return handleParseError(lineNumber, statement, "Missing '->'.")
 		
 		condition = tmp[0].lstrip().rstrip()
 		result = tmp[1].lstrip().rstrip()
 		
 		if not condition:
-			handleParseError(lineNumber, statement, "Missing Matcher before ->.")
+			return handleParseError(lineNumber, statement, "Missing Matcher before ->.")
 		if condition in self.matchers:
 			condition = self.matchers[condition]
-		else:
+		elif condition[0] == '{' and condition[-1] == '}':
 			condition = Matcher(condition, statement, lineNumber)
+		else:
+			return handleParseError(lineNumber, statement, "Unknown Matcher or missing {} before ->.")
 		
 		# need to handle there not being a specified result	
 		if not result:
@@ -65,8 +67,10 @@ class Parser():
 		else:
 			if result in self.actions:
 				result = self.actions[result]
-			else:
+			elif result[0] == '[' and result[-1] == ']':
 				result = Action(result, statement, lineNumber)
+			else:
+				return handleParseError(lineNumber, statement, "Unknown Action or missing [] after ->.")
 			filter = Filter(condition, result)
 		
 		if indentation == 0:
@@ -74,7 +78,7 @@ class Parser():
 			return
 		
 		if not self.filters:
-			handleParseError(lineNumber, statement, "Invalid indentation, this line has no parent")
+			return handleParseError(lineNumber, statement, "Invalid indentation, this line has no parent")
 		
 		parentFilter = self.filters[-1]
 		indentation -= 1
@@ -104,16 +108,17 @@ class Parser():
 			line = line.lstrip()
 			indentation -= line.count('\t')
 			
-			keyword = re.search(r'[a-zA-Z0-9]+', line)
+			keyword = re.search(r'^[a-zA-Z0-9]+', line)
 			if keyword is None:
 				handleParseError(lineNumber, line, "Can't find opening valid token")
+				continue
 			keyword = keyword.group(0)
 			if keyword == 'if':
 				self.parseStatement(line, lineNumber, indentation)
-				continue
 			else:
 				if indentation > 0:
 					handleParseError(lineNumber, line, "Variables shouldn't be indented")
+					continue
 				self.parseVariable(keyword, line[len(keyword):].lstrip(), line, lineNumber)
 				continue
 		return self.filters

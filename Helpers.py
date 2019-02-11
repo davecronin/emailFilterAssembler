@@ -6,7 +6,7 @@ import pdb
 This file contains general use helper functions that can are used throughout the project.
 '''
 
-def initGlobals(_setPDB, _setTrace):
+def initGlobals(_setPDB, _setTrace, _ignoreParseErrors):
 	'''Initialises global variables.'''
 	global setPDB
 	setPDB = _setPDB
@@ -14,14 +14,15 @@ def initGlobals(_setPDB, _setTrace):
 	setTrace = _setTrace
 	global labelWarningOccured
 	labelWarningOccured = False
+	global ignoreParseErrors
+	ignoreParseErrors = _ignoreParseErrors
+	
 
 def goToFailure(error=None):
-	'''Wrapper for exit which prints and error and can trip pdb if set.'''
-	if error:
-		print(error)
+	'''Wrapper for exit which prints an error and can trip pdb if set.'''
 	if setPDB:
 		pdb.set_trace()
-	exit(1)
+	raise Exception(error)
 	
 def trace(str):
 	'''Wrapper for tracing if set to trace '''
@@ -30,7 +31,10 @@ def trace(str):
 		
 def handleParseError(lineNumber, line, error):
 	'''Handles a parse error by formating line information and the error before exiting.'''
-	goToFailure(error="Line {0}: {1} => {2}".format(lineNumber, line, error))
+	if ignoreParseErrors:
+		print("Line {0}: {1} => {2}".format(lineNumber, line, error))
+	else:
+		goToFailure(error="Line {0}: {1} => {2}".format(lineNumber, line, error))
 	
 def labelWarning(label):
 	'''Handler for warning of nested labels, providing verbose output only the first time.'''
@@ -46,3 +50,8 @@ def labelWarning(label):
 					" manually in gmail. Regular labels will be created automatically on import.\n"
 					"Sorry for the inconvenience this causes.\n".format(label))
 		labelWarningOccured = True
+		
+def detailAssert(a, op, b):
+	if not op(a, b):
+		print("failed {} {} {}".format(a, op, b))
+		exit(1)
