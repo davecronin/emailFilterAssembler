@@ -1,6 +1,6 @@
 # Email Filter Assembler
 
-A small assembler that turns language specifying email filers into XML that can be read Gmail
+A small assembler that turns a language specifying email filers into XML that can be read Gmail
 or any other email hosts that use the same standard for specifying filters. 
 This language provides a simpler way of writing and managing these filters than the 
 Gmail interface since the information is more compact and understandable with 
